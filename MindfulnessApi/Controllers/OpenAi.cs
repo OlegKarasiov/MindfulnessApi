@@ -1,6 +1,7 @@
 using Azure;
 using Azure.AI.OpenAI;
 using Microsoft.AspNetCore.Mvc;
+using MindfulnessApi.Models;
 using System.Text.Json;
 using IO = System.IO;
 

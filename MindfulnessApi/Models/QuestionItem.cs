@@ -1,4 +1,4 @@
-namespace MindfulnessApi
+namespace MindfulnessApi.Models
 {
     public class QuestionItem
     {
