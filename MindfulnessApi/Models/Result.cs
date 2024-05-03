@@ -1,6 +1,6 @@
 ﻿namespace MindfulnessApi.Models
 {
-    public class Test
+    public class Result
     {
         public int Id { get; set; }
 
@@ -8,8 +8,8 @@
 
         public string Description { get; set; }
 
-        public List<Question> Questions { get; set; }
+        public int Min { get; set; }
 
-        public List<Result> Results { get; set; }
+        public int Max { get; set; }
     }
 }

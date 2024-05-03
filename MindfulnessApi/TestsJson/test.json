@@ -1,0 +1,54 @@
+{
+  "title": "title",
+  "description": "description",
+  "results": [
+    {
+      "max": 5,
+      "min": 0,
+      "title": "title",
+      "description": "description"
+    },
+    {
+      "max": 10,
+      "min": 6,
+      "title": "title",
+      "description": "description"
+    }
+  ],
+  "questions": [
+    {
+      "QuestionText": "question",
+      "answers": [
+        {
+          "AnswerText": "answer",
+          "score": 1
+        },
+        {
+          "AnswerText": "answer",
+          "score": 2
+        },
+        {
+          "AnswerText": "answer",
+          "score": 3
+        }
+      ]
+    },
+    {
+      "QuestionText": "question",
+      "answers": [
+        {
+          "AnswerText": "answer",
+          "score": 1
+        },
+        {
+          "AnswerText": "answer",
+          "score": 2
+        },
+        {
+          "AnswerText": "answer",
+          "score": 3
+        }
+      ]
+    }
+  ]
+}
