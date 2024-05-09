@@ -16,7 +16,7 @@ namespace MindfulnessApi.Services
 
         public static void StartTestSeeding()
         {
-            var json = File.ReadAllText(@"TestsJson\test.json");
+            var json = File.ReadAllText(@"TestsJson/test.json");
             var TestObject = JsonConvert.DeserializeObject<Test>(json);
             if (TestObject != null)
             {

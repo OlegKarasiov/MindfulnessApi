@@ -34,6 +34,9 @@ namespace MindfulnessApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Kyrwa4213")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("QuestionId")
                         .HasColumnType("integer");
 
