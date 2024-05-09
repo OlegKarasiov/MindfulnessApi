@@ -10,11 +10,11 @@ namespace MindfulnessApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OpenAi : ControllerBase
+    public class MindfullnesController : ControllerBase
     {
         private readonly ApiDbContext _context;
 
-        public OpenAi(ApiDbContext context)
+        public MindfullnesController(ApiDbContext context)
         {
             _context = context;
         }
@@ -27,7 +27,6 @@ namespace MindfulnessApi.Controllers
             string nonAzureOpenAIApiKey = "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";
             var client = new OpenAIClient(nonAzureOpenAIApiKey, new OpenAIClientOptions());
             var systemRoleText = IO.File.ReadAllText("system-role.txt");
-
 
             try
             {
@@ -53,13 +52,5 @@ namespace MindfulnessApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpPost(Name = "GetGet")]
-        //public async Task<IActionResult> PostSome([FromBody] QuestionsRequest questions)
-        //{
-        //    var huy = _context.Tests.Select(x => x.Id > 0);
-
-        //    return Ok();
-        //}
     }
 }
