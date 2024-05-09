@@ -10,6 +10,8 @@ services:
     depends_on:
      - "mindfulness_db"
     container_name: mindfulnessapi-service
+    ports:
+      - "5252:5252"
     build:
       context: .
       dockerfile: MindfulnessApi/Dockerfile
