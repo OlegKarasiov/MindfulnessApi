@@ -45,5 +45,25 @@ namespace MindfulnessApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllTests()
+        {
+            try
+            {
+                var allTests = _context.Tests.Select(x => new TestResult
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                }).ToList();
+
+                return Ok(allTests);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
