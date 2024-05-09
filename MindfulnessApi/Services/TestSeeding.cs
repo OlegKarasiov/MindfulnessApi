@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MindfulnessApi.Data;
+﻿using MindfulnessApi.Data;
 using MindfulnessApi.Models;
 using Newtonsoft.Json;
 
@@ -14,30 +13,23 @@ namespace MindfulnessApi.Services
             _context = context;
         }
 
-        public static void StartTestSeeding()
+        public void StartTestSeeding()
         {
             var json = File.ReadAllText(@"TestsJson/test.json");
             var TestObject = JsonConvert.DeserializeObject<Test>(json);
             if (TestObject != null)
             {
 
-                var optionsBuilder = new DbContextOptionsBuilder<ApiDbContext>();
-                var conn = "User ID=postgres;Password=postgres;Server=localhost;Port=5432;Database=SampleDriverDb;";
+                _context.Database.EnsureCreated();
+                _context.Tests.RemoveRange(_context.Tests);
+                _context.Answers.RemoveRange(_context.Answers);
+                _context.Questions.RemoveRange(_context.Questions);
+                _context.Results.RemoveRange(_context.Results);
+                _context.SaveChanges();
 
-                optionsBuilder.UseNpgsql(conn);
+                _context.Add(TestObject);
+                _context.SaveChanges();
 
-                using (var context = new ApiDbContext(optionsBuilder.Options))
-                {
-                    context.Database.EnsureCreated();
-                    context.Tests.RemoveRange(context.Tests);
-                    context.Answers.RemoveRange(context.Answers);
-                    context.Questions.RemoveRange(context.Questions);
-                    context.Results.RemoveRange(context.Results);
-                    context.SaveChanges();
-
-                    context.Add(TestObject);
-                    context.SaveChanges();
-                }
             }
         }
     }

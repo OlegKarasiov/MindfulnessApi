@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MindfulnessApi.Data;
-using MindfulnessApi.Services;
+using MindfulnessApi.Models;
+using Newtonsoft.Json;
 
 namespace MindfulnessApi.Controllers
 {
@@ -15,13 +16,27 @@ namespace MindfulnessApi.Controllers
             _context = context;
         }
 
-        [HttpPost(Name = "SeedTests")]
-        public async Task<IActionResult> Post()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SeedTests()
         {
-
             try
             {
-                TestSeeding.StartTestSeeding();
+
+                var json = System.IO.File.ReadAllText(@"TestsJson/test.json");
+                var TestObject = JsonConvert.DeserializeObject<Test>(json);
+                if (TestObject != null)
+                {
+
+                    _context.Tests.RemoveRange(_context.Tests);
+                    _context.Answers.RemoveRange(_context.Answers);
+                    _context.Questions.RemoveRange(_context.Questions);
+                    _context.Results.RemoveRange(_context.Results);
+                    _context.SaveChanges();
+
+                    _context.Add(TestObject);
+                    _context.SaveChanges();
+
+                }
 
                 return Ok();
             }
@@ -30,6 +45,5 @@ namespace MindfulnessApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }

@@ -19,8 +19,8 @@ namespace MindfulnessApi.Controllers
             _context = context;
         }
 
-        [HttpPost(Name = "GetMindfullnes")]
-        public async Task<IActionResult> Post([FromBody] QuestionsRequest questions)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetMindfullnes([FromBody] QuestionsRequest questions)
         {
             string questionsSerialized = JsonSerializer.Serialize(questions);
 

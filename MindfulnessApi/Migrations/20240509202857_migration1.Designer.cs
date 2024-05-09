@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MindfulnessApi.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240509192148_migration2")]
-    partial class migration2
+    [Migration("20240509202857_migration1")]
+    partial class migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
