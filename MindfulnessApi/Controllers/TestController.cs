@@ -28,7 +28,7 @@ namespace MindfulnessApi.Controllers
                 {
 
                     _context.Tests.RemoveRange(_context.Tests);
-                    _context.Answers.RemoveRange(_context.Answers);
+                    _context.Options.RemoveRange(_context.Options);
                     _context.Questions.RemoveRange(_context.Questions);
                     _context.Results.RemoveRange(_context.Results);
                     _context.SaveChanges();
@@ -66,12 +66,12 @@ namespace MindfulnessApi.Controllers
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetTest(int id)
+        [HttpGet("[action]/{testId:int}")]
+        public async Task<IActionResult> GetTest(int testId)
         {
             try
             {
-                var allTests = _context.Tests.Where(x => x.Id == id).Select(x => new Test
+                var test = _context.Tests.Where(x => x.Id == testId).Select(x => new Test
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -80,12 +80,43 @@ namespace MindfulnessApi.Controllers
                     Results = x.Results
                 }).ToList();
 
-                return Ok(allTests);
+                return Ok(test);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("[action]/{testId:int}")]
+        public async Task<IActionResult> GetTestResult(int testId, [FromBody] List<TestAnswer> testAnswer)
+        {
+            try
+            {
+                var test = _context.Tests.Where(x => x.Id == testId).Select(x => new Test
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Questions = x.Questions,
+                    Results = x.Results
+                }).FirstOrDefault();
+
+                var scoreSum = 0;
+
+                //foreach (var question in test.Questions)
+                //{
+
+                //}
+
+                return Ok(test);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
+

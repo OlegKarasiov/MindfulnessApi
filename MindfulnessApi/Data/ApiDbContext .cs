@@ -9,7 +9,7 @@ namespace MindfulnessApi.Data
         {
         }
 
-        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Option> Options { get; set; }
 
         public DbSet<Question> Questions { get; set; }
 

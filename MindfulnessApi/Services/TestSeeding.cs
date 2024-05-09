@@ -22,7 +22,7 @@ namespace MindfulnessApi.Services
 
                 _context.Database.EnsureCreated();
                 _context.Tests.RemoveRange(_context.Tests);
-                _context.Answers.RemoveRange(_context.Answers);
+                _context.Options.RemoveRange(_context.Options);
                 _context.Questions.RemoveRange(_context.Questions);
                 _context.Results.RemoveRange(_context.Results);
                 _context.SaveChanges();
