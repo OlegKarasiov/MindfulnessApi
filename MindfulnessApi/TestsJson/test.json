@@ -18,34 +18,34 @@
   "questions": [
     {
       "QuestionText": "question",
-      "answers": [
+      "options": [
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 1
         },
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 2
         },
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 3
         }
       ]
     },
     {
       "QuestionText": "question",
-      "answers": [
+      "options": [
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 1
         },
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 2
         },
         {
-          "AnswerText": "answer",
+          "OptionText": "answer",
           "score": 3
         }
       ]

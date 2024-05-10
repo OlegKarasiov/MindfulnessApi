@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MindfulnessApi.Data;
+using MindfulnessApi.Extensions;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseNpgsql(conn));
+
+builder.Services.AddTransientServices();
 
 builder.Services.AddCors(options =>
 {

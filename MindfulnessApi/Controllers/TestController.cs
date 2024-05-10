@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MindfulnessApi.Data;
 using MindfulnessApi.Models;
-using Newtonsoft.Json;
+using MindfulnessApi.Services.Interfaces;
 
 namespace MindfulnessApi.Controllers
 {
@@ -9,34 +8,19 @@ namespace MindfulnessApi.Controllers
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly ApiDbContext _context;
+        private readonly ITestService _testService;
 
-        public TestController(ApiDbContext context)
+        public TestController(ITestService testService)
         {
-            _context = context;
+            _testService = testService;
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("seed-tests")]
         public async Task<IActionResult> SeedTests()
         {
             try
             {
-
-                var json = System.IO.File.ReadAllText(@"TestsJson/test.json");
-                var TestObject = JsonConvert.DeserializeObject<Test>(json);
-                if (TestObject != null)
-                {
-
-                    _context.Tests.RemoveRange(_context.Tests);
-                    _context.Options.RemoveRange(_context.Options);
-                    _context.Questions.RemoveRange(_context.Questions);
-                    _context.Results.RemoveRange(_context.Results);
-                    _context.SaveChanges();
-
-                    _context.Add(TestObject);
-                    _context.SaveChanges();
-
-                }
+                await _testService.StartTestSeedingAsync();
 
                 return Ok();
             }
@@ -46,17 +30,12 @@ namespace MindfulnessApi.Controllers
             }
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("tests")]
         public async Task<IActionResult> GetAllTests()
         {
             try
             {
-                var allTests = _context.Tests.Select(x => new TestResult
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                }).ToList();
+                var allTests = await _testService.GetAllTestsAsync();
 
                 return Ok(allTests);
             }
@@ -66,19 +45,12 @@ namespace MindfulnessApi.Controllers
             }
         }
 
-        [HttpGet("[action]/{testId:int}")]
+        [HttpGet("tests/{testId:int}")]
         public async Task<IActionResult> GetTest(int testId)
         {
             try
             {
-                var test = _context.Tests.Where(x => x.Id == testId).Select(x => new Test
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                    Questions = x.Questions,
-                    Results = x.Results
-                }).ToList();
+                var test = await _testService.GetTestAsync(testId);
 
                 return Ok(test);
             }
@@ -88,35 +60,20 @@ namespace MindfulnessApi.Controllers
             }
         }
 
-        [HttpGet("[action]/{testId:int}")]
+        [HttpPost("tests/{testId:int}/get-results")]
         public async Task<IActionResult> GetTestResult(int testId, [FromBody] List<TestAnswer> testAnswer)
         {
             try
             {
-                var test = _context.Tests.Where(x => x.Id == testId).Select(x => new Test
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                    Questions = x.Questions,
-                    Results = x.Results
-                }).FirstOrDefault();
+                var result = await _testService.GetTestResultAsync(testId, testAnswer);
 
-                var scoreSum = 0;
-
-                //foreach (var question in test.Questions)
-                //{
-
-                //}
-
-                return Ok(test);
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }
 
