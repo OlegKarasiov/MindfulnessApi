@@ -56,7 +56,6 @@ namespace MindfulnessApi.Services.Implimentations
 
         public async Task<ResultResponse> GetTestResultAsync(int testId, List<TestAnswer> testAnswer)
         {
-
             var test = await _context.Tests.Include(x => x.Questions).ThenInclude(x => x.Options).Where(x => x.Id == testId).Select(x => new Test
             {
                 Id = x.Id,
