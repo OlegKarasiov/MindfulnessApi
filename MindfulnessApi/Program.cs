@@ -8,8 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApiDbContext>(options =>
-    options.UseNpgsql(conn));
+    options.UseSqlServer(conn));
+
+//builder.Services.AddDbContext<ApiDbContext>(conn, options => options.EnableRetryOnFailure());
+//options.UseSqlServer(connectionString);
 
 builder.Services.AddTransientServices();
 
@@ -18,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000")
+                          policy.AllowAnyOrigin()
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
                       });
