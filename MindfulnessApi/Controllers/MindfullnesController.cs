@@ -20,7 +20,7 @@ namespace MindfulnessApi.Controllers
         {
             try
             {
-                var mindfulness = _mindfulnessService.GenerateMindfullnesAsync(questions);
+                var mindfulness = await _mindfulnessService.GenerateMindfullnesAsync(questions);
 
                 return Ok(mindfulness);
             }

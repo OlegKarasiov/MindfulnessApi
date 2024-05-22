@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="system-role.txt" />
+    <None Remove="ServiceFiles\OpenAiUtils\system-role.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="system-role.txt" />
+    <Content Include="ServiceFiles\OpenAiUtils\system-role.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="TestsJson\" />
   </ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@ using Azure.AI.OpenAI;
 using MindfulnessApi.Data;
 using MindfulnessApi.Models;
 using MindfulnessApi.Services.Interfaces;
+using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
 namespace MindfulnessApi.Services.Implimentations
@@ -22,12 +23,13 @@ namespace MindfulnessApi.Services.Implimentations
 
             string nonAzureOpenAIApiKey = "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";
             var client = new OpenAIClient(nonAzureOpenAIApiKey, new OpenAIClientOptions());
-            var systemRoleText = File.ReadAllText("system-role.txt");
+            var systemRoleText = File.ReadAllText(@"ServiceFiles/OpenAiUtils/system-role.json");
+            string data = JObject.Parse(systemRoleText)["SystemRole"].ToString();
 
 
             var chatCompletionsOptions = new ChatCompletionsOptions()
             {
-                DeploymentName = "gpt-3.5-turbo-0125",
+                DeploymentName = "gpt-4o",
                 Messages =
                     {
                         // The system message represents instructions or other guidance about how the assistant should behave
