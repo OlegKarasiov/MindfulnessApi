@@ -21,7 +21,7 @@ namespace MindfulnessApi.Services.Implimentations
         {
             string questionsSerialized = JsonSerializer.Serialize(questions);
 
-            string nonAzureOpenAIApiKey = "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";
+            string nonAzureOpenAIApiKey = "";
             var client = new OpenAIClient(nonAzureOpenAIApiKey, new OpenAIClientOptions());
             var systemRoleText = File.ReadAllText(@"ServiceFiles/OpenAiUtils/system-role.json");
             string data = JObject.Parse(systemRoleText)["SystemRole"].ToString();
